@@ -43,10 +43,18 @@ import {
   TRANSACTION_TYPE_OPTIONS,
 } from "../_constants/transaction";
 import { DatePicker } from "./ui/date-picker";
+import { addTransaction } from "../_actions/add-transactions";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, { message: "O nome é obrigatório." }),
-  amount: z.string().trim().min(1, { message: "O valor é obrigatório." }),
+  amount: z
+    .number({
+      message: "O valor é obrigatório",
+    })
+    .positive({
+      message: "O valor deve ser informado.",
+    }),
   type: z.nativeEnum(TransactionType, {
     message: "O tipo é obrigatório.",
   }),
@@ -62,24 +70,33 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>;
 
 const AddTransactionButton = () => {
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      amount: "",
-      category: TransactionCategory.OTHER,
+      amount: 0,
+      category: undefined,
       date: new Date(),
       name: "",
-      paymentMethod: TransactionPaymentMethod.CASH,
-      type: TransactionType.EXPENSE,
+      paymentMethod: undefined,
+      type: undefined,
     },
   });
-  const onSubmit = (data: FormSchema) => {
-    console.log(data);
+  const onSubmit = async (data: FormSchema) => {
+    try {
+      await addTransaction(data);
+      setDialogIsOpen(false);
+      form.reset();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <Dialog
+      open={dialogIsOpen}
       onOpenChange={(open) => {
+        setDialogIsOpen(open);
         if (!open) {
           form.reset();
         }
@@ -124,8 +141,12 @@ const AddTransactionButton = () => {
                   <FormControl>
                     <MoneyInput
                       placeholder="Digite o valor..."
+                      onValueChange={({ floatValue }) =>
+                        field.onChange(floatValue)
+                      }
                       autoComplete="off"
-                      {...field}
+                      onBlur={field.onBlur}
+                      disabled={field.disabled}
                     />
                   </FormControl>
                   <FormMessage />
@@ -138,7 +159,7 @@ const AddTransactionButton = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tipo</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue="">
+                  <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o tipo da transação..." />
@@ -162,7 +183,7 @@ const AddTransactionButton = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Categoria</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue="">
+                  <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione a categoria..." />
@@ -188,7 +209,7 @@ const AddTransactionButton = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Método de pagamento</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue="">
+                  <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o método de pagamento..." />
