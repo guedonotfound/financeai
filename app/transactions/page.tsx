@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 const TransactionsPage = async () => {
   const { userId } = await auth();
   if (!userId) {
-    return redirect("/login");
+    redirect("/login");
   }
   const transactions = await db.transaction.findMany({
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],

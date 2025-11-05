@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 const Home = async () => {
   const { userId } = await auth();
   if (!userId) {
-    return redirect("/login");
+    redirect("/login");
   }
   return (
     <div className="flex h-full items-center justify-center">

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 const SubscriptionPage = async () => {
   const { userId } = await auth();
   if (!userId) {
-    return redirect("/login");
+    redirect("/login");
   }
   return (
     <>
