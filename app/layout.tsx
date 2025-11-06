@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import Navbar from "./_components/navbar";
+import { Toaster } from "sonner";
 
 const mulish = Mulish({
   subsets: ["latin-ext"],
@@ -24,7 +25,8 @@ export default function RootLayout({
       <body className={`${mulish.className} dark antialiased`}>
         <ClerkProvider appearance={{ baseTheme: dark }}>
           <Navbar />
-          {children}
+          <main>{children}</main>
+          <Toaster theme="dark" />
         </ClerkProvider>
       </body>
     </html>
