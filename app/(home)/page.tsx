@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import EmptyCard from "./transactions/_components/empty-card";
+import EmptyCard from "../transactions/_components/empty-card";
 
 const Home = async () => {
   const { userId } = auth();
