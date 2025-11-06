@@ -44,6 +44,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { upsertTransaction } from "../_actions/upsert-transactions";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 interface UpsertTransactionDialogProps {
   isOpen: boolean;
@@ -104,6 +105,11 @@ const UpsertTransactionDialog = ({
       await upsertTransaction({ ...data, id: transactionId });
       setIsOpen(false);
       form.reset();
+      if (transactionId) {
+        toast.success("Transação atualizada.");
+      } else {
+        toast.success("Transação criada.");
+      }
     } catch (error) {
       console.log(error);
     }
