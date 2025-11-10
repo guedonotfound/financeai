@@ -11,7 +11,8 @@ import {
 } from "@/app/_components/ui/chart";
 import { TransactionType } from "@prisma/client";
 import { TransactionPercentagePerType } from "@/app/_data/get-dashboard/types";
-import { TrendingUpIcon } from "lucide-react";
+import PercentageItem from "./percentage-item";
+import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 
 export const description = "A donut chart";
 
@@ -61,7 +62,7 @@ const TransactionsPieChart = ({
     },
   ];
   return (
-    <Card className="flex flex-col p-12">
+    <Card className="flex flex-col">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
@@ -80,15 +81,25 @@ const TransactionsPieChart = ({
             />
           </PieChart>
         </ChartContainer>
-        <div className="space-y-2">
+        <div className="space-y-2 p-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <TrendingUpIcon size={16} className="text-primary" />
-              <p className="text-sm text-muted-foreground">Receita</p>
+            <div className="w-full gap-2 space-y-3">
+              <PercentageItem
+                icon={<TrendingUpIcon size={16} className="text-primary" />}
+                title="Receita"
+                value={typesPercentage[TransactionType.DEPOSIT]}
+              />
+              <PercentageItem
+                icon={<TrendingDownIcon size={16} className="text-red-500" />}
+                title="Despesas"
+                value={typesPercentage[TransactionType.EXPENSE]}
+              />
+              <PercentageItem
+                icon={<PiggyBankIcon size={16} />}
+                title="Investimentos"
+                value={typesPercentage[TransactionType.INVESTMENT]}
+              />
             </div>
-            <p className="text-sm font-bold">
-              {typesPercentage[TransactionType.DEPOSIT]}%
-            </p>
           </div>
         </div>
       </CardContent>
