@@ -1,16 +1,8 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Pie, PieChart } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/app/_components/ui/card";
+import { Card, CardContent } from "@/app/_components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -18,16 +10,10 @@ import {
   ChartTooltipContent,
 } from "@/app/_components/ui/chart";
 import { TransactionType } from "@prisma/client";
+import { TransactionPercentagePerType } from "@/app/_data/get-dashboard/types";
+import { TrendingUpIcon } from "lucide-react";
 
 export const description = "A donut chart";
-
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
-];
 
 const chartConfig = {
   [TransactionType.INVESTMENT]: {
@@ -44,13 +30,38 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const TransactionsPieChart = () => {
+interface TransactionsPieChartProps {
+  typesPercentage: TransactionPercentagePerType;
+  investmentsTotal: number;
+  depositsTotal: number;
+  expensesTotal: number;
+}
+
+const TransactionsPieChart = ({
+  typesPercentage,
+  investmentsTotal,
+  depositsTotal,
+  expensesTotal,
+}: TransactionsPieChartProps) => {
+  const chartData = [
+    {
+      type: TransactionType.DEPOSIT,
+      amount: depositsTotal,
+      fill: "#55B02E",
+    },
+    {
+      type: TransactionType.EXPENSE,
+      amount: expensesTotal,
+      fill: "#E93030",
+    },
+    {
+      type: TransactionType.INVESTMENT,
+      amount: investmentsTotal,
+      fill: "#FFFFFF",
+    },
+  ];
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart - Donut</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
+    <Card className="flex flex-col p-12">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
@@ -63,21 +74,24 @@ const TransactionsPieChart = () => {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="amount"
+              nameKey="type"
               innerRadius={60}
             />
           </PieChart>
         </ChartContainer>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <TrendingUpIcon size={16} className="text-primary" />
+              <p className="text-sm text-muted-foreground">Receita</p>
+            </div>
+            <p className="text-sm font-bold">
+              {typesPercentage[TransactionType.DEPOSIT]}%
+            </p>
+          </div>
+        </div>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   );
 };
