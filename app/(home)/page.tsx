@@ -38,13 +38,15 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
         <TimeSelect />
       </div>
       {transactions.length > 0 ? (
-        <>
-          <SummaryCards {...dashboard} />
+        <div className="grid grid-cols-[2fr,1fr]">
+          <div className="flex flex-col gap-6">
+            <SummaryCards {...dashboard} />
 
-          <div className="grid grid-cols-3 grid-rows-1 gap-6">
-            <TransactionsPieChart {...dashboard} />
+            <div className="grid grid-cols-3 grid-rows-1 gap-6">
+              <TransactionsPieChart {...dashboard} />
+            </div>
           </div>
-        </>
+        </div>
       ) : (
         <div className="flex w-full items-center">
           <EmptyCard />
