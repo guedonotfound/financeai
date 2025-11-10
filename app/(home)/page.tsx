@@ -5,6 +5,7 @@ import SummaryCards from "./_components/summary-cards";
 import TimeSelect from "./_components/time-select";
 import { isMatch } from "date-fns";
 import { db } from "../_lib/prisma";
+import TransactionsPieChart from "./_components/transactions-pie-chart";
 
 interface HomeProps {
   searchParams: {
@@ -34,9 +35,14 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
         <TimeSelect />
       </div>
       {transactions.length > 0 ? (
-        <div className="grid grid-cols-[2fr,1fr]">
-          <SummaryCards month={month} />
-        </div>
+        <>
+          <div className="grid grid-cols-[2fr,1fr]">
+            <SummaryCards month={month} />
+          </div>
+          <div className="grid grid-cols-3 grid-rows-1 gap-6">
+            <TransactionsPieChart />
+          </div>
+        </>
       ) : (
         <div className="flex w-full items-center">
           <EmptyCard />
