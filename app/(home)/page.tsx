@@ -6,6 +6,7 @@ import TimeSelect from "./_components/time-select";
 import { isMatch } from "date-fns";
 import { db } from "../_lib/prisma";
 import TransactionsPieChart from "./_components/transactions-pie-chart";
+import { getDashboard } from "../_data/get-dashboard";
 
 interface HomeProps {
   searchParams: {
@@ -23,6 +24,8 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
     redirect("?month=01");
   }
 
+  const dashboard = await getDashboard(month);
+
   const transactions = await db.transaction.findMany({
     where: {
       userId,
@@ -37,7 +40,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
       {transactions.length > 0 ? (
         <>
           <div className="grid grid-cols-[2fr,1fr]">
-            <SummaryCards month={month} />
+            <SummaryCards {...dashboard} />
           </div>
           <div className="grid grid-cols-3 grid-rows-1 gap-6">
             <TransactionsPieChart />
