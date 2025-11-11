@@ -81,7 +81,7 @@ const TransactionsPieChart = ({
             />
           </PieChart>
         </ChartContainer>
-        <div className="space-y-2 p-3">
+        <div className="space-y-2">
           <div className="flex items-center justify-between">
             <div className="w-full gap-2 space-y-3">
               <PercentageItem
