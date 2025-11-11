@@ -8,6 +8,7 @@ import { db } from "../_lib/prisma";
 import TransactionsPieChart from "./_components/transactions-pie-chart";
 import { getDashboard } from "../_data/get-dashboard";
 import ExpensesPerCategory from "./_components/expenses-per-category";
+import LastTransactions from "./_components/last-transactions";
 
 interface HomeProps {
   searchParams: {
@@ -50,6 +51,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
               />
             </div>
           </div>
+          <LastTransactions {...dashboard} />
         </div>
       ) : (
         <div className="flex w-full items-center">
