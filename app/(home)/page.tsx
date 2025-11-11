@@ -40,7 +40,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
         <TimeSelect />
       </div>
       {transactions.length > 0 ? (
-        <div className="grid grid-cols-[2fr,1fr]">
+        <div className="grid grid-cols-[2fr,1fr] gap-6">
           <div className="flex flex-col gap-6">
             <SummaryCards {...dashboard} />
 
@@ -51,7 +51,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
               />
             </div>
           </div>
-          <LastTransactions {...dashboard} />
+          <LastTransactions lastTransactions={dashboard.lastTransactions} />
         </div>
       ) : (
         <div className="flex w-full items-center">
