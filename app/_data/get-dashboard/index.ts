@@ -65,6 +65,11 @@ export const getDashboard = async (month: string) => {
       _sum: {
         amount: true,
       },
+      orderBy: {
+        _sum: {
+          amount: "desc",
+        },
+      },
     })
   ).map((category) => ({
     category: category.category,
