@@ -41,6 +41,7 @@ const LastTransactions = ({ lastTransactions }: LastTransactionsProps) => {
                   height={20}
                   width={20}
                   alt="PIX"
+                  className="brightness-0 invert"
                 />
               </div>
               <div>
