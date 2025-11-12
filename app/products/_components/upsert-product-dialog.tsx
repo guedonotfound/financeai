@@ -31,7 +31,7 @@ import { upsertProduct } from "@/app/_actions/upsert-products";
 interface UpsertProductDialogProps {
   isOpen: boolean;
   defaultValues?: FormSchema;
-  transactionId?: string;
+  productId?: string;
   setIsOpen: (isOpen: boolean) => void;
 }
 
@@ -51,7 +51,7 @@ type FormSchema = z.infer<typeof formSchema>;
 const UpsertProductDialog = ({
   isOpen,
   defaultValues,
-  transactionId,
+  productId,
   setIsOpen,
 }: UpsertProductDialogProps) => {
   const form = useForm<FormSchema>({
@@ -70,10 +70,10 @@ const UpsertProductDialog = ({
 
   const onSubmit = async (data: FormSchema) => {
     try {
-      await upsertProduct({ ...data, id: transactionId });
+      await upsertProduct({ ...data, id: productId });
       setIsOpen(false);
       form.reset();
-      if (transactionId) {
+      if (productId) {
         toast.success("Produto atualizada.");
       } else {
         toast.success("Produto criada.");
@@ -83,7 +83,7 @@ const UpsertProductDialog = ({
     }
   };
 
-  const isUpdate = Boolean(transactionId);
+  const isUpdate = Boolean(productId);
 
   return (
     <Dialog
