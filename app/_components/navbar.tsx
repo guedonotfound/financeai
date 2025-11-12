@@ -11,7 +11,6 @@ interface NavbarProps {
 
 const Navbar = ({ isAdmin }: NavbarProps) => {
   const pathname = usePathname();
-  console.log(isAdmin);
 
   return (
     <nav className="flex justify-between border-b border-solid px-8 py-4">

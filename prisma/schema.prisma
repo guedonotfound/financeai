@@ -36,6 +36,7 @@ model Product {
   name String
   amount Decimal @db.Decimal(10,2)
   orders OrderProduct[]
+  isActive Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
