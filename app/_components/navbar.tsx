@@ -5,8 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const Navbar = () => {
+interface NavbarProps {
+  isAdmin: boolean;
+}
+
+const Navbar = ({ isAdmin }: NavbarProps) => {
   const pathname = usePathname();
+  console.log(isAdmin);
+
   return (
     <nav className="flex justify-between border-b border-solid px-8 py-4">
       <div className="flex items-center gap-10">
@@ -31,16 +37,41 @@ const Navbar = () => {
         >
           Transações
         </Link>
-        <Link
-          href="/subscriptions"
-          className={
-            pathname === "/subscriptions"
-              ? "font-bold text-primary"
-              : "text-muted-foreground"
-          }
-        >
-          Assinatura
-        </Link>
+        {isAdmin ? (
+          <>
+            <Link
+              href="/orders"
+              className={
+                pathname === "/orders"
+                  ? "font-bold text-primary"
+                  : "text-muted-foreground"
+              }
+            >
+              Pedidos
+            </Link>
+            <Link
+              href="/products"
+              className={
+                pathname === "/products"
+                  ? "font-bold text-primary"
+                  : "text-muted-foreground"
+              }
+            >
+              Produtos
+            </Link>
+          </>
+        ) : (
+          <Link
+            href="/subscriptions"
+            className={
+              pathname === "/subscriptions"
+                ? "font-bold text-primary"
+                : "text-muted-foreground"
+            }
+          >
+            Assinatura
+          </Link>
+        )}
       </div>
       <UserButton showName />
     </nav>

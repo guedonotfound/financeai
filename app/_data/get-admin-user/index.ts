@@ -1,0 +1,9 @@
+import { auth } from "@clerk/nextjs/server";
+
+export const getAdminUser = async () => {
+  const { userId } = auth();
+  if (!userId) {
+    return false;
+  }
+  return userId === process.env.ADMIN_USER;
+};
