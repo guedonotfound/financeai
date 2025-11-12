@@ -1,6 +1,6 @@
 "use client";
 
-import { UpsertOrder } from "@/app/_actions/upsert-orders";
+import { CreateOrder } from "@/app/_actions/create-orders";
 import {
   Dialog,
   DialogClose,
@@ -72,7 +72,7 @@ const UpsertOrderDialog = ({
 
   const onSubmit = async (data: FormSchema) => {
     try {
-      await UpsertOrder(data);
+      await CreateOrder(data);
       setIsOpen(false);
       form.reset();
       toast.success("Pedido criado.");

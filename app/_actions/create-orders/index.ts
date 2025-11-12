@@ -3,16 +3,16 @@
 import { db } from "@/app/_lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { upsertOrderSchema } from "./schema";
+import { createOrderSchema } from "./schema";
 
-interface UpsertOrderParams {
+interface CreateOrderParams {
   id?: string;
   name: string;
   products: { productId: string; quantity: number }[];
 }
 
-export const UpsertOrder = async (params: UpsertOrderParams) => {
-  upsertOrderSchema.parse(params);
+export const CreateOrder = async (params: CreateOrderParams) => {
+  createOrderSchema.parse(params);
 
   const { userId } = auth();
   if (!userId) {
