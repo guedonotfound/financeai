@@ -12,8 +12,6 @@ interface UpsertOrderParams {
 }
 
 export const UpsertOrder = async (params: UpsertOrderParams) => {
-  console.log(params);
-
   upsertOrderSchema.parse(params);
 
   const { userId } = auth();
