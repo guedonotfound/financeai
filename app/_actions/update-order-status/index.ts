@@ -9,7 +9,7 @@ interface UpdateOrderStatusParams {
   checked: boolean;
 }
 
-export const UpdateOrderStatus = async (params: UpdateOrderStatusParams) => {
+export const updateOrderStatus = async (params: UpdateOrderStatusParams) => {
   await db.order.update({
     where: { id: params.id },
     data: {

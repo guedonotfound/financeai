@@ -9,7 +9,7 @@ interface DeleteTransactionsParams {
 }
 
 export const deleteTransactions = async (params: DeleteTransactionsParams) => {
-  const { userId } = await auth();
+  const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }
