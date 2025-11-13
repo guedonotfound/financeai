@@ -20,8 +20,13 @@ interface DeleteOrderButtonProps {
 
 const DeleteOrderButton = ({ id }: DeleteOrderButtonProps) => {
   const handleDeleteOrderButton = () => {
-    deleteOrder({ id });
-    toast.warning("Pedido excluído.");
+    try {
+      deleteOrder({ id });
+      toast.warning("Pedido excluído.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Erro ao deletar pedido.");
+    }
   };
   return (
     <AlertDialog>

@@ -78,6 +78,7 @@ const UpsertOrderDialog = ({
       toast.success("Pedido criado.");
     } catch (error) {
       console.log(error);
+      toast.error("Erro ao salvar pedido.");
     }
   };
   return (

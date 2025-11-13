@@ -22,8 +22,13 @@ interface DeleteTransactionButtonProps {
 
 const DeleteTransactionButton = (id: DeleteTransactionButtonProps) => {
   const handleDeleteTransactionButton = () => {
-    deleteTransactions(id);
-    toast.warning("Transação excluída.");
+    try {
+      deleteTransactions(id);
+      toast.success("Transação excluída.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Erro ao deletar transação.");
+    }
   };
   return (
     <AlertDialog>

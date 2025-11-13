@@ -5,6 +5,7 @@ import { Checkbox } from "@/app/_components/ui/checkbox";
 import { Order } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface OrderCheckboxProps {
   order: Order;
@@ -16,15 +17,18 @@ const OrderCheckbox = ({ order, field }: OrderCheckboxProps) => {
   const checked = field === "isPaid" ? order.isPaid : order.isDelivered;
 
   const handleCheckboxClick = (checked: boolean) => {
-    console.log("começando a transition");
-
     startTransition(async () => {
-      console.log("");
-      await updateOrderStatus({
-        id: order.id,
-        field,
-        checked: checked,
-      });
+      try {
+        await updateOrderStatus({
+          id: order.id,
+          field,
+          checked: checked,
+        });
+        toast.success("Pedido atualizado.");
+      } catch (error) {
+        console.log(error);
+        toast.error("Erro ao atualizar pedido.");
+      }
     });
     redirect("/orders");
   };

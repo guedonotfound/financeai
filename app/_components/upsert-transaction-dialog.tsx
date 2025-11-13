@@ -112,6 +112,7 @@ const UpsertTransactionDialog = ({
       }
     } catch (error) {
       console.log(error);
+      toast.error("Erro ao salvar transação.");
     }
   };
 

@@ -1,7 +1,7 @@
 import { upsertProduct } from "@/app/_actions/upsert-products";
 import { Checkbox } from "@/app/_components/ui/checkbox";
 import { Product } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 interface ProductCheckboxProps {
   product: Product;
@@ -9,12 +9,17 @@ interface ProductCheckboxProps {
 
 const ProductCheckbox = ({ product }: ProductCheckboxProps) => {
   const handleCheckboxClick = (checked: boolean) => {
-    upsertProduct({
-      ...product,
-      isActive: checked,
-      amount: Number(product.amount),
-    });
-    redirect("/products");
+    try {
+      upsertProduct({
+        ...product,
+        isActive: checked,
+        amount: Number(product.amount),
+      });
+      toast.success("Protudo atualizado.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Erro ao atualizar produto.");
+    }
   };
 
   return (
