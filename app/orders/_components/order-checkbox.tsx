@@ -1,6 +1,6 @@
 "use client";
 
-import { UpdateOrderStatus } from "@/app/_actions/update-order-status";
+import { updateOrderStatus } from "@/app/_actions/update-order-status";
 import { Checkbox } from "@/app/_components/ui/checkbox";
 import { Order } from "@prisma/client";
 import { redirect } from "next/navigation";
@@ -20,7 +20,7 @@ const OrderCheckbox = ({ order, field }: OrderCheckboxProps) => {
 
     startTransition(async () => {
       console.log("");
-      await UpdateOrderStatus({
+      await updateOrderStatus({
         id: order.id,
         field,
         checked: checked,
