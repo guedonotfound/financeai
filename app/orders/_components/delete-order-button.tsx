@@ -1,28 +1,26 @@
-"use client";
-
-import { deleteTransactions } from "@/app/_actions/delete-transactions";
+import { deleteOrder } from "@/app/_actions/delete-orders";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
+  AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogFooter,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
 import { TrashIcon } from "lucide-react";
 import { toast } from "sonner";
 
-interface DeleteTransactionButtonProps {
+interface DeleteOrderButtonProps {
   id: string;
 }
 
-const DeleteTransactionButton = (id: DeleteTransactionButtonProps) => {
-  const handleDeleteTransactionButton = () => {
-    deleteTransactions(id);
+const DeleteOrderButton = ({ id }: DeleteOrderButtonProps) => {
+  const handleDeleteOrderButton = () => {
+    deleteOrder({ id });
     toast.warning("Transação excluída.");
   };
   return (
@@ -44,7 +42,7 @@ const DeleteTransactionButton = (id: DeleteTransactionButtonProps) => {
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            onClick={handleDeleteTransactionButton}
+            onClick={handleDeleteOrderButton}
           >
             Excluir
           </AlertDialogAction>
@@ -54,4 +52,4 @@ const DeleteTransactionButton = (id: DeleteTransactionButtonProps) => {
   );
 };
 
-export default DeleteTransactionButton;
+export default DeleteOrderButton;
