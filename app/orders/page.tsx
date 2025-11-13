@@ -32,12 +32,20 @@ const OrdersPage = async () => {
         <h1 className="text-2xl font-bold">Pedidos</h1>
         <AddOrderButton products={products} />
       </div>
-      <Tabs defaultValue="pending">
-        <TabsList>
-          <TabsTrigger value="pending">Pendentes</TabsTrigger>
-          <TabsTrigger value="finished">Finalizados</TabsTrigger>
-        </TabsList>
-        <TabsContent value="pending">
+      <Tabs
+        defaultValue="pending"
+        className="flex h-full flex-col overflow-hidden"
+      >
+        <div>
+          <TabsList>
+            <TabsTrigger value="pending">Pendentes</TabsTrigger>
+            <TabsTrigger value="finished">Finalizados</TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent
+          value="pending"
+          className="flex h-full flex-col overflow-hidden"
+        >
           <ScrollArea>
             <DataTable columns={orderColumns} data={pendingOrders} />
           </ScrollArea>
