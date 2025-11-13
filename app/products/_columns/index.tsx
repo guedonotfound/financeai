@@ -4,7 +4,7 @@ import { Product } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatCurrency } from "@/app/_utils/currency";
 import EditProductButton from "../_components/edit-product-button";
-import { Checkbox } from "@/app/_components/ui/checkbox";
+import ProductCheckbox from "../_components/product-checkbox";
 
 export const productColumns: ColumnDef<Product>[] = [
   {
@@ -39,7 +39,7 @@ export const productColumns: ColumnDef<Product>[] = [
     cell: ({ row: { original: product } }) => {
       return (
         <div className="flex justify-around pr-4">
-          <Checkbox id="active" defaultChecked={product.isActive} />
+          <ProductCheckbox product={product} />
         </div>
       );
     },

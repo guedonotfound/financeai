@@ -9,6 +9,7 @@ interface UpsertProductParams {
   id?: string;
   name: string;
   amount: number;
+  isActive?: boolean;
 }
 
 export const upsertProduct = async (params: UpsertProductParams) => {
