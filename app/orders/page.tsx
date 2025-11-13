@@ -25,6 +25,7 @@ const OrdersPage = async () => {
   }
   const products = (await getProducts()).activeProducts;
   const pendingOrders = (await getOrders()).pendingOrders;
+  const finishedOrders = (await getOrders()).finishedOrders;
   return (
     <div className="flex h-full flex-col space-y-6 overflow-hidden p-6">
       <div className="flex w-full items-center justify-between">
@@ -42,7 +43,9 @@ const OrdersPage = async () => {
           </ScrollArea>
         </TabsContent>
         <TabsContent value="finished">
-          <ScrollArea></ScrollArea>
+          <ScrollArea>
+            <DataTable columns={orderColumns} data={finishedOrders} />
+          </ScrollArea>
         </TabsContent>
       </Tabs>
     </div>
