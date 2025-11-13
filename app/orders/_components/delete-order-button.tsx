@@ -21,7 +21,7 @@ interface DeleteOrderButtonProps {
 const DeleteOrderButton = ({ id }: DeleteOrderButtonProps) => {
   const handleDeleteOrderButton = () => {
     deleteOrder({ id });
-    toast.warning("Transação excluída.");
+    toast.warning("Pedido excluído.");
   };
   return (
     <AlertDialog>
@@ -32,10 +32,10 @@ const DeleteOrderButton = ({ id }: DeleteOrderButtonProps) => {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Excluir transação?</AlertDialogTitle>
+          <AlertDialogTitle>Excluir pedido?</AlertDialogTitle>
           <AlertDialogDescription>
-            Ao confirmar, esta transação será excluída de forma permanente e não
-            poderá ser recuperada.
+            Ao confirmar, este pedido será excluído de forma permanente e não
+            poderá ser recuperado.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
