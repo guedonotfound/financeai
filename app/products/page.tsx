@@ -6,6 +6,12 @@ import { ScrollArea } from "../_components/ui/scroll-area";
 import { DataTable } from "../_components/ui/data-table";
 import { productColumns } from "./_columns";
 import { db } from "../_lib/prisma";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../_components/ui/tabs";
 
 const ProductsPage = async () => {
   const userId = auth();
@@ -16,7 +22,18 @@ const ProductsPage = async () => {
   if (!isAdmin) {
     throw new Error("Unsauthorized");
   }
-  const products = await db.product.findMany({
+  const activeProducts = await db.product.findMany({
+    where: {
+      isActive: true,
+    },
+    orderBy: {
+      name: "asc",
+    },
+  });
+  const inactiveProducts = await db.product.findMany({
+    where: {
+      isActive: false,
+    },
     orderBy: {
       name: "asc",
     },
@@ -29,9 +46,22 @@ const ProductsPage = async () => {
         </div>
         <AddProductButton />
       </div>
-      <ScrollArea>
-        <DataTable columns={productColumns} data={products} />
-      </ScrollArea>
+      <Tabs defaultValue="active">
+        <TabsList>
+          <TabsTrigger value="active">Ativos</TabsTrigger>
+          <TabsTrigger value="inactive">Inativos</TabsTrigger>
+        </TabsList>
+        <TabsContent value="active">
+          <ScrollArea>
+            <DataTable columns={productColumns} data={activeProducts} />
+          </ScrollArea>
+        </TabsContent>
+        <TabsContent value="inactive">
+          <ScrollArea>
+            <DataTable columns={productColumns} data={inactiveProducts} />
+          </ScrollArea>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
