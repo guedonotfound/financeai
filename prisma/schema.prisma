@@ -46,7 +46,8 @@ model Product {
 model OrderProduct {
   orderId   String
   productId String
-  quantity  Int    @default(1)
+  amount    Decimal @default(0) @db.Decimal(10, 2)
+  quantity  Int     @default(1)
 
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id])

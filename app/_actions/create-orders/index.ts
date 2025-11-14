@@ -19,21 +19,29 @@ export const CreateOrder = async (params: CreateOrderParams) => {
     throw new Error("Unauthorized");
   }
 
-  const productList = params.products.map((product) => product.productId);
   const selectedProducts = await db.product.findMany({
     where: {
       id: {
-        in: productList,
+        in: params.products.map((p) => p.productId),
       },
     },
   });
 
-  const totalAmount = selectedProducts.reduce((sum, product) => {
-    const quantity =
-      params.products.find((product) => product.productId === product.productId)
-        ?.quantity || 1;
-    return sum + Number(product.amount) * quantity;
-  }, 0);
+  const orderItems = params.products.map((p) => {
+    const dbProduct = selectedProducts.find((prod) => prod.id === p.productId);
+    if (!dbProduct) throw new Error("Produto não encontrado");
+
+    return {
+      productId: p.productId,
+      quantity: p.quantity,
+      amount: dbProduct.amount,
+    };
+  });
+
+  const totalAmount = orderItems.reduce(
+    (sum, item) => sum + Number(item.amount) * item.quantity,
+    0,
+  );
 
   const nextOrderNumber =
     ((
@@ -49,10 +57,7 @@ export const CreateOrder = async (params: CreateOrderParams) => {
       userId: userId,
       amount: totalAmount,
       products: {
-        create: params.products.map((product) => ({
-          productId: product.productId,
-          quantity: product.quantity,
-        })),
+        create: orderItems,
       },
     },
   });
