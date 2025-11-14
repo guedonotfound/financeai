@@ -1,12 +1,19 @@
 "use client";
 
 import { formatCurrency } from "@/app/_utils/currency";
-import { Order } from "@prisma/client";
+import { Order, OrderProduct, Product } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import OrderCheckbox from "../_components/order-checkbox";
 import DeleteOrderButton from "../_components/delete-order-button";
+import OrderInfosButton from "../_components/order-infos-button";
 
-export const orderColumns: ColumnDef<Order>[] = [
+type OrderWithProducts = Order & {
+  products: (OrderProduct & {
+    product: Product;
+  })[];
+};
+
+export const orderColumns: ColumnDef<OrderWithProducts>[] = [
   {
     accessorKey: "orderNumber",
     header: "Nº Pedido",
@@ -53,7 +60,8 @@ export const orderColumns: ColumnDef<Order>[] = [
     header: () => <div className="text-center">Ações</div>,
     cell: ({ row: { original: order } }) => {
       return (
-        <div className="flex justify-around">
+        <div className="flex justify-center gap-2">
+          <OrderInfosButton products={order.products} />
           <DeleteOrderButton id={order.id} />
         </div>
       );

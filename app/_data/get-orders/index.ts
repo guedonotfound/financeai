@@ -10,6 +10,13 @@ export const getOrders = async () => {
     orderBy: {
       isPaid: "asc",
     },
+    include: {
+      products: {
+        include: {
+          product: true,
+        },
+      },
+    },
   });
   const finishedOrders = await db.order.findMany({
     where: {
@@ -17,6 +24,13 @@ export const getOrders = async () => {
     },
     orderBy: {
       orderNumber: "desc",
+    },
+    include: {
+      products: {
+        include: {
+          product: true,
+        },
+      },
     },
   });
 
