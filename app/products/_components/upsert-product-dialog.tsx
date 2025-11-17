@@ -44,6 +44,13 @@ const formSchema = z.object({
     .positive({
       message: "O valor deve ser informado.",
     }),
+  costPrice: z
+    .number({
+      message: "O preço de custo é obrigatório",
+    })
+    .positive({
+      message: "O preço de custo deve ser informado.",
+    }),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -74,9 +81,9 @@ const UpsertProductDialog = ({
       setIsOpen(false);
       form.reset();
       if (productId) {
-        toast.success("Produto atualizada.");
+        toast.success("Produto atualizado.");
       } else {
-        toast.success("Produto criada.");
+        toast.success("Produto criado.");
       }
     } catch (error) {
       console.log(error);
@@ -129,10 +136,32 @@ const UpsertProductDialog = ({
             />
             <FormField
               control={form.control}
+              name="costPrice"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Preço de custo</FormLabel>
+                  <FormControl>
+                    <MoneyInput
+                      placeholder="R$ 0,00"
+                      onValueChange={({ floatValue }) =>
+                        field.onChange(floatValue)
+                      }
+                      autoComplete="off"
+                      onBlur={field.onBlur}
+                      disabled={field.disabled}
+                      defaultValue={defaultValues?.costPrice}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="amount"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Valor</FormLabel>
+                  <FormLabel>Valor de venda</FormLabel>
                   <FormControl>
                     <MoneyInput
                       placeholder="R$ 0,00"
