@@ -39,29 +39,34 @@ const ProductsPage = async () => {
     },
   });
   return (
-    <div className="flex h-full flex-col space-y-6 overflow-hidden p-6">
+    <div className="flex h-full flex-col space-y-6 p-6">
       <div className="flex w-full items-center justify-between">
-        <div className="flex items-center">
-          <h1 className="text-2xl font-bold">Produtos</h1>
-        </div>
+        <h1 className="text-2xl font-bold">Produtos</h1>
         <AddProductButton />
       </div>
-      <Tabs defaultValue="active">
-        <TabsList>
-          <TabsTrigger value="active">Ativos</TabsTrigger>
-          <TabsTrigger value="inactive">Inativos</TabsTrigger>
-        </TabsList>
-        <TabsContent value="active">
-          <ScrollArea>
-            <DataTable columns={productColumns} data={activeProducts} />
-          </ScrollArea>
-        </TabsContent>
-        <TabsContent value="inactive">
-          <ScrollArea>
-            <DataTable columns={productColumns} data={inactiveProducts} />
-          </ScrollArea>
-        </TabsContent>
-      </Tabs>
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <Tabs
+          defaultValue="active"
+          className="flex flex-1 flex-col overflow-hidden"
+        >
+          <div>
+            <TabsList>
+              <TabsTrigger value="active">Ativos</TabsTrigger>
+              <TabsTrigger value="inactive">Inativos</TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent value="active" className="flex-1 overflow-hidden">
+            <ScrollArea className="h-full">
+              <DataTable columns={productColumns} data={activeProducts} />
+            </ScrollArea>
+          </TabsContent>
+          <TabsContent value="inactive" className="flex-1 overflow-hidden">
+            <ScrollArea className="h-full">
+              <DataTable columns={productColumns} data={inactiveProducts} />
+            </ScrollArea>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 };

@@ -28,6 +28,7 @@ const EditProductButton = ({ product }: EditProductButtonProps) => {
         setIsOpen={setDialogIsOpen}
         defaultValues={{
           ...product,
+          costPrice: Number(product.costPrice),
           amount: Number(product.amount),
         }}
         productId={product.id}

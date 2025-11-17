@@ -23,12 +23,12 @@ export default async function RootLayout({
 }>) {
   const isAdmin = await getAdminUser();
   return (
-    <html lang="en">
-      <body className={`${mulish.className} dark antialiased`}>
+    <html lang="en" className="h-screen">
+      <body className={`${mulish.className} dark h-full antialiased`}>
         <ClerkProvider appearance={{ baseTheme: dark }}>
-          <div className="flex h-full flex-col overflow-hidden">
+          <div className="flex h-full flex-col">
             <Navbar isAdmin={isAdmin} />
-            <main className="overflow-hidden">{children}</main>
+            <main className="flex-1 overflow-hidden">{children}</main>
           </div>
           <Toaster theme="dark" />
         </ClerkProvider>

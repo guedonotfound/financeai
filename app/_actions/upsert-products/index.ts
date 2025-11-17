@@ -9,6 +9,7 @@ interface UpsertProductParams {
   id?: string;
   name: string;
   amount: number;
+  costPrice: number;
   isActive?: boolean;
 }
 
