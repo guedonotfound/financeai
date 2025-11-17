@@ -12,12 +12,41 @@ export const productColumns: ColumnDef<Product>[] = [
     header: "Nome",
   },
   {
+    accessorKey: "costPrice",
+    header: () => <div className="text-center">Preço de custo</div>,
+    cell: ({ row: { original: product } }) => {
+      return (
+        <div className="text-center">
+          {formatCurrency(Number(product.costPrice))}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "amount",
-    header: () => <div className="text-center">Valor</div>,
+    header: () => <div className="text-center">Valor de venda</div>,
     cell: ({ row: { original: product } }) => {
       return (
         <div className="text-center">
           {formatCurrency(Number(product.amount))}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "profitMargin",
+    header: () => <div className="text-center">Porcentagem de lucro</div>,
+    cell: ({ row: { original: product } }) => {
+      return (
+        <div className="text-center">
+          {(
+            ((Number(product.amount) - Number(product.costPrice)) /
+              Number(product.costPrice)) *
+            100
+          )
+            .toFixed(2)
+            .replace(".", ",")}
+          %
         </div>
       );
     },

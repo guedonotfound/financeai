@@ -13,6 +13,7 @@ const ProductCheckbox = ({ product }: ProductCheckboxProps) => {
       upsertProduct({
         ...product,
         isActive: checked,
+        costPrice: Number(product.costPrice),
         amount: Number(product.amount),
       });
       toast.success("Protudo atualizado.");
