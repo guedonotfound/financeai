@@ -37,7 +37,7 @@ model Product {
   id        String         @id @default(uuid())
   name      String
   amount    Decimal        @db.Decimal(10, 2)
-  costPrice Decimal        @db.Decimal(10, 2) @default(0)
+  costPrice Decimal        @db.Decimal(10, 2)
   orders    OrderProduct[]
   isActive  Boolean        @default(true)
   createdAt DateTime       @default(now())
@@ -45,11 +45,12 @@ model Product {
 }
 
 model OrderProduct {
-  orderId   String
-  productId String
-  amount    Decimal @default(0) @db.Decimal(10, 2)
-  costPrice Decimal @default(0) @db.Decimal(10, 2)
-  quantity  Int     @default(1)
+  orderId      String
+  productId    String
+  amount       Decimal @db.Decimal(10, 2)
+  costPrice    Decimal @db.Decimal(10, 2)
+  quantity     Int     @default(1)
+  observations String?
 
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id])
