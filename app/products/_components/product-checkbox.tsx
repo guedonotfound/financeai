@@ -26,7 +26,7 @@ const ProductCheckbox = ({ product }: ProductCheckboxProps) => {
   return (
     <Checkbox
       id={`active-${product.id}`}
-      defaultChecked={product.isActive}
+      checked={product.isActive}
       onCheckedChange={handleCheckboxClick}
     />
   );
