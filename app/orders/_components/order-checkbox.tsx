@@ -1,5 +1,6 @@
 "use client";
 
+import { ToggleTransactionFromOrder } from "@/app/_actions/toggle-transaction-from-order";
 import { updateOrderStatus } from "@/app/_actions/update-order-status";
 import { Checkbox } from "@/app/_components/ui/checkbox";
 import { Order } from "@prisma/client";
@@ -22,6 +23,13 @@ const OrderCheckbox = ({ order, field }: OrderCheckboxProps) => {
           id: order.id,
           field,
           checked: checked,
+        });
+        await ToggleTransactionFromOrder({
+          field,
+          amount: Number(order.amount),
+          orderNumber: order.orderNumber,
+          userId: order.userId,
+          checked,
         });
         toast.success("Pedido atualizado.");
       } catch (error) {
