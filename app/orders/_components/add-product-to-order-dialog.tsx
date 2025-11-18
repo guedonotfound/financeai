@@ -6,7 +6,7 @@ import { Product } from "@prisma/client";
 
 interface AddProductToOrderDialogProps {
   products: Product[];
-  onAdd: (item: { id: string }) => void;
+  onAdd: (p: Product) => void;
 }
 
 const AddProductToOrderDialog = ({
@@ -59,7 +59,7 @@ const AddProductToOrderDialog = ({
         <div className="flex items-center gap-3 pt-2">
           <Button
             onClick={() => {
-              onAdd({ id: selectedProduct.id });
+              onAdd(selectedProduct);
               setSelectedProduct(null);
               setQuery("");
             }}
