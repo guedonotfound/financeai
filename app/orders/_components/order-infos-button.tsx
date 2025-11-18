@@ -1,3 +1,9 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/app/_components/ui/accordion";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import {
@@ -31,10 +37,25 @@ const OrderInfosButton = ({ products }: OrderInfosButtonProps) => {
         </DialogHeader>
         {products.map((product) => (
           <Card key={product.productId} className="p-2">
-            <CardContent className="flex items-center justify-between px-3 py-0">
-              <p>{product.quantity}x</p>
-              <p>{product.product.name}</p>
-              <p>{formatCurrency(Number(product.amount))} cada</p>
+            <CardContent className="px-3 py-0">
+              <div className="flex items-center justify-between">
+                <p>
+                  {product.quantity}x {formatCurrency(Number(product.amount))}
+                </p>
+                <p>{product.product.name}</p>
+              </div>
+              {product.observations && (
+                <Accordion type="single" collapsible>
+                  <AccordionItem value={product.observations}>
+                    <AccordionTrigger className="text-sm text-muted-foreground">
+                      Observações
+                    </AccordionTrigger>
+                    <AccordionContent className="whitespace-pre-wrap text-xs">
+                      {product.observations}
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              )}
             </CardContent>
           </Card>
         ))}
