@@ -38,6 +38,7 @@ const OrderCheckbox = ({ order, field }: OrderCheckboxProps) => {
       defaultChecked={checked}
       disabled={isPending}
       onCheckedChange={handleCheckboxClick}
+      className="h-5 w-5"
     />
   );
 };

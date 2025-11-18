@@ -28,6 +28,7 @@ const ProductCheckbox = ({ product }: ProductCheckboxProps) => {
       id={`active-${product.id}`}
       checked={product.isActive}
       onCheckedChange={handleCheckboxClick}
+      className="h-5 w-5"
     />
   );
 };

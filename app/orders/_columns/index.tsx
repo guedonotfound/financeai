@@ -23,8 +23,19 @@ export const orderColumns: ColumnDef<OrderWithProducts>[] = [
     header: "Nome",
   },
   {
+    accessorKey: "costPrice",
+    header: () => <div className="text-center">Preço de custo</div>,
+    cell: ({ row: { original: order } }) => {
+      return (
+        <div className="text-center">
+          {formatCurrency(Number(order.costPrice))}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "amount",
-    header: () => <div className="text-center">Valor</div>,
+    header: () => <div className="text-center">Valor da venda</div>,
     cell: ({ row: { original: order } }) => {
       return (
         <div className="text-center">
@@ -34,22 +45,28 @@ export const orderColumns: ColumnDef<OrderWithProducts>[] = [
     },
   },
   {
-    accessorKey: "isPaid",
-    header: () => <div className="text-center">Pago</div>,
+    accessorKey: "profitPercentage",
+    header: () => <div className="text-center">Porcentagem de lucro</div>,
     cell: ({ row: { original: order } }) => {
       return (
-        <div className="flex justify-around pr-4">
-          <OrderCheckbox field="isPaid" order={order} />
+        <div className="text-center">
+          {(
+            ((Number(order.amount) - Number(order.costPrice)) /
+              Number(order.costPrice)) *
+            100
+          ).toFixed(2)}
+          %
         </div>
       );
     },
   },
   {
-    accessorKey: "IsDelivered",
-    header: () => <div className="text-center">Entregue</div>,
+    accessorKey: "isPaidAndIsDelivered",
+    header: () => <div className="text-center">Pago e Entregue</div>,
     cell: ({ row: { original: order } }) => {
       return (
-        <div className="flex justify-around pr-4">
+        <div className="flex justify-center gap-2 pr-4">
+          <OrderCheckbox field="isPaid" order={order} />
           <OrderCheckbox field="isDelivered" order={order} />
         </div>
       );
@@ -60,7 +77,7 @@ export const orderColumns: ColumnDef<OrderWithProducts>[] = [
     header: () => <div className="text-center">Ações</div>,
     cell: ({ row: { original: order } }) => {
       return (
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center">
           <OrderInfosButton products={order.products} />
           <DeleteOrderButton id={order.id} />
         </div>
