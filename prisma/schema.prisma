@@ -26,35 +26,34 @@ model Order {
   name        String
   userId      String
   amount      Decimal        @db.Decimal(10, 2)
-  costPrice   Decimal        @db.Decimal(10, 2)
-  products    OrderProduct[]
-  isPaid      Boolean        @default(false)
-  isDelivered Boolean        @default(false)
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
+  isDelivered Boolean        @default(false)
+  isPaid      Boolean        @default(false)
+  costPrice   Decimal        @db.Decimal(10, 2)
+  products    OrderProduct[]
 }
 
 model Product {
   id        String         @id @default(uuid())
   name      String
   amount    Decimal        @db.Decimal(10, 2)
-  costPrice Decimal        @db.Decimal(10, 2)
-  orders    OrderProduct[]
-  isActive  Boolean        @default(true)
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
+  isActive  Boolean        @default(true)
+  costPrice Decimal        @db.Decimal(10, 2)
+  orders    OrderProduct[]
 }
 
 model OrderProduct {
   orderId      String
   productId    String
+  quantity     Int     @default(1)
   amount       Decimal @db.Decimal(10, 2)
   costPrice    Decimal @db.Decimal(10, 2)
-  quantity     Int     @default(1)
   observations String?
-
-  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id])
+  order        Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product @relation(fields: [productId], references: [id])
 
   @@id([orderId, productId])
 }
