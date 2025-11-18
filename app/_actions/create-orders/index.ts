@@ -11,7 +11,6 @@ interface CreateOrderParams {
   products: {
     productId: string;
     quantity: number;
-    costPrice: number;
     observations?: string;
   }[];
 }
@@ -40,13 +39,18 @@ export const CreateOrder = async (params: CreateOrderParams) => {
       productId: p.productId,
       quantity: p.quantity,
       amount: dbProduct.amount,
-      costPrice: p.costPrice,
+      costPrice: dbProduct.costPrice,
       observations: p.observations,
     };
   });
 
   const totalAmount = orderItems.reduce(
     (sum, item) => sum + Number(item.amount) * item.quantity,
+    0,
+  );
+
+  const totalCostPrice = orderItems.reduce(
+    (sum, item) => sum + Number(item.costPrice) * item.quantity,
     0,
   );
 
@@ -63,6 +67,7 @@ export const CreateOrder = async (params: CreateOrderParams) => {
       orderNumber: nextOrderNumber,
       userId: userId,
       amount: totalAmount,
+      costPrice: totalCostPrice,
       products: {
         create: orderItems,
       },

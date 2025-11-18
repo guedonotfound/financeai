@@ -26,6 +26,7 @@ model Order {
   name        String
   userId      String
   amount      Decimal        @db.Decimal(10, 2)
+  costPrice   Decimal        @db.Decimal(10, 2)
   products    OrderProduct[]
   isPaid      Boolean        @default(false)
   isDelivered Boolean        @default(false)
