@@ -8,7 +8,12 @@ import { createOrderSchema } from "./schema";
 interface CreateOrderParams {
   id?: string;
   name: string;
-  products: { productId: string; quantity: number }[];
+  products: {
+    productId: string;
+    quantity: number;
+    costPrice: number;
+    observations?: string;
+  }[];
 }
 
 export const CreateOrder = async (params: CreateOrderParams) => {
@@ -35,6 +40,8 @@ export const CreateOrder = async (params: CreateOrderParams) => {
       productId: p.productId,
       quantity: p.quantity,
       amount: dbProduct.amount,
+      costPrice: p.costPrice,
+      observations: p.observations,
     };
   });
 

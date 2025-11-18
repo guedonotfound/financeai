@@ -44,6 +44,8 @@ const formSchema = z.object({
       quantity: z
         .number()
         .positive({ message: "Selecione pelo menos um produto." }),
+      costPrice: z.number().positive(),
+      observations: z.string().optional(),
     }),
   ),
 });
@@ -81,6 +83,7 @@ const UpsertOrderDialog = ({
       toast.error("Erro ao salvar pedido.");
     }
   };
+
   return (
     <Dialog
       open={isOpen}
