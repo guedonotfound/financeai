@@ -3,7 +3,6 @@
 import { updateOrderStatus } from "@/app/_actions/update-order-status";
 import { Checkbox } from "@/app/_components/ui/checkbox";
 import { Order } from "@prisma/client";
-import { redirect } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
@@ -30,12 +29,11 @@ const OrderCheckbox = ({ order, field }: OrderCheckboxProps) => {
         toast.error("Erro ao atualizar pedido.");
       }
     });
-    redirect("/orders");
   };
   return (
     <Checkbox
       id={`${field}-${order.id}`}
-      defaultChecked={checked}
+      checked={checked}
       disabled={isPending}
       onCheckedChange={handleCheckboxClick}
       className="h-5 w-5"

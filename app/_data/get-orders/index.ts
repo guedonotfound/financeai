@@ -7,9 +7,12 @@ export const getOrders = async () => {
     where: {
       isDelivered: false,
     },
-    orderBy: {
-      isPaid: "asc",
-    },
+    orderBy: [
+      {
+        isPaid: "asc",
+      },
+      { orderNumber: "asc" },
+    ],
     include: {
       products: {
         include: {

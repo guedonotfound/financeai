@@ -27,14 +27,14 @@ const OrdersPage = async () => {
   const pendingOrders = (await getOrders()).pendingOrders;
   const finishedOrders = (await getOrders()).finishedOrders;
   return (
-    <div className="flex h-full flex-col space-y-6 overflow-hidden p-6">
+    <div className="flex h-full flex-col space-y-6 p-6">
       <div className="flex w-full items-center justify-between">
         <h1 className="text-2xl font-bold">Pedidos</h1>
         <AddOrderButton products={products} />
       </div>
       <Tabs
         defaultValue="pending"
-        className="flex h-full flex-col overflow-hidden"
+        className="flex flex-1 flex-col overflow-hidden"
       >
         <div>
           <TabsList>
@@ -42,16 +42,13 @@ const OrdersPage = async () => {
             <TabsTrigger value="finished">Finalizados</TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent
-          value="pending"
-          className="flex h-full flex-col overflow-hidden"
-        >
-          <ScrollArea>
+        <TabsContent value="pending" className="flex-1 overflow-hidden">
+          <ScrollArea className="h-full">
             <DataTable columns={orderColumns} data={pendingOrders} />
           </ScrollArea>
         </TabsContent>
-        <TabsContent value="finished">
-          <ScrollArea>
+        <TabsContent value="finished" className="flex-1 overflow-hidden">
+          <ScrollArea className="h-full">
             <DataTable columns={orderColumns} data={finishedOrders} />
           </ScrollArea>
         </TabsContent>

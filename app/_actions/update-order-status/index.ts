@@ -2,6 +2,7 @@
 
 import { db } from "@/app/_lib/prisma";
 import { Order } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 interface UpdateOrderStatusParams {
   id: string;
@@ -16,4 +17,5 @@ export const updateOrderStatus = async (params: UpdateOrderStatusParams) => {
       [params.field]: params.checked,
     },
   });
+  revalidatePath("/orders");
 };
