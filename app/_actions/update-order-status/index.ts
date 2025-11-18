@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 interface UpdateOrderStatusParams {
   id: string;
-  field: keyof Pick<Order, "isPaid" | "isDelivered">;
+  field: keyof Pick<Order, "isPaid" | "isBought">;
   checked: boolean;
 }
 

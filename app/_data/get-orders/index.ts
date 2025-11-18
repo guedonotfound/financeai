@@ -5,7 +5,7 @@ import { db } from "@/app/_lib/prisma";
 export const getOrders = async () => {
   const pendingOrders = await db.order.findMany({
     where: {
-      isDelivered: false,
+      isBought: false,
     },
     orderBy: [
       {
@@ -23,7 +23,7 @@ export const getOrders = async () => {
   });
   const finishedOrders = await db.order.findMany({
     where: {
-      isDelivered: true,
+      isBought: true,
     },
     orderBy: {
       orderNumber: "desc",

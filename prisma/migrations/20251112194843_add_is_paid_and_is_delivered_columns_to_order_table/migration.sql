@@ -1,3 +1,3 @@
 -- AlterTable
-ALTER TABLE "Order" ADD COLUMN     "isDelivered" BOOLEAN NOT NULL DEFAULT false,
+ALTER TABLE "Order" ADD COLUMN     "isBought" BOOLEAN NOT NULL DEFAULT false,
 ADD COLUMN     "isPaid" BOOLEAN NOT NULL DEFAULT false;

@@ -8,12 +8,12 @@ import { toast } from "sonner";
 
 interface OrderCheckboxProps {
   order: Order;
-  field: "isPaid" | "isDelivered";
+  field: "isPaid" | "isBought";
 }
 
 const OrderCheckbox = ({ order, field }: OrderCheckboxProps) => {
   const [isPending, startTransition] = useTransition();
-  const checked = field === "isPaid" ? order.isPaid : order.isDelivered;
+  const checked = field === "isPaid" ? order.isPaid : order.isBought;
 
   const handleCheckboxClick = (checked: boolean) => {
     startTransition(async () => {

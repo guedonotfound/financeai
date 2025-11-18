@@ -28,7 +28,7 @@ model Order {
   amount      Decimal        @db.Decimal(10, 2)
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-  isDelivered Boolean        @default(false)
+  isBought    Boolean        @default(false)
   isPaid      Boolean        @default(false)
   costPrice   Decimal        @db.Decimal(10, 2)
   products    OrderProduct[]

@@ -62,12 +62,12 @@ export const orderColumns: ColumnDef<OrderWithProducts>[] = [
   },
   {
     accessorKey: "isPaidAndIsDelivered",
-    header: () => <div className="text-center">Pago e Entregue</div>,
+    header: () => <div className="text-center">Pago e Comprado</div>,
     cell: ({ row: { original: order } }) => {
       return (
         <div className="flex justify-center gap-2 pr-4">
           <OrderCheckbox field="isPaid" order={order} />
-          <OrderCheckbox field="isDelivered" order={order} />
+          <OrderCheckbox field="isBought" order={order} />
         </div>
       );
     },
