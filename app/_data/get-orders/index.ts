@@ -36,9 +36,16 @@ export const getOrders = async () => {
       },
     },
   });
+  const nonPaidOrders = await db.order.count({
+    where: {
+      isBought: true,
+      isPaid: false,
+    },
+  });
 
   return {
     pendingOrders,
     finishedOrders,
+    nonPaidOrders,
   };
 };

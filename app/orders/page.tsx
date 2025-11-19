@@ -3,16 +3,8 @@ import { getProducts } from "../_data/get-products";
 import AddOrderButton from "./_components/add-order-button";
 import { getAdminUser } from "../_data/get-admin-user";
 import { redirect } from "next/navigation";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../_components/ui/tabs";
-import { ScrollArea } from "../_components/ui/scroll-area";
-import { DataTable } from "../_components/ui/data-table";
 import { getOrders } from "../_data/get-orders";
-import { orderColumns } from "./_columns";
+import OrderTabs from "./_components/order-tabs";
 
 const OrdersPage = async () => {
   const userId = auth();
@@ -26,33 +18,18 @@ const OrdersPage = async () => {
   const products = (await getProducts()).activeProducts;
   const pendingOrders = (await getOrders()).pendingOrders;
   const finishedOrders = (await getOrders()).finishedOrders;
+  const nonPaidOrders = (await getOrders()).nonPaidOrders;
   return (
     <div className="flex h-full flex-col space-y-6 p-6">
       <div className="flex w-full items-center justify-between">
         <h1 className="text-2xl font-bold">Pedidos</h1>
         <AddOrderButton products={products} />
       </div>
-      <Tabs
-        defaultValue="pending"
-        className="flex flex-1 flex-col overflow-hidden"
-      >
-        <div>
-          <TabsList>
-            <TabsTrigger value="pending">Pendentes</TabsTrigger>
-            <TabsTrigger value="finished">Finalizados</TabsTrigger>
-          </TabsList>
-        </div>
-        <TabsContent value="pending" className="flex-1 overflow-hidden">
-          <ScrollArea className="h-full">
-            <DataTable columns={orderColumns} data={pendingOrders} />
-          </ScrollArea>
-        </TabsContent>
-        <TabsContent value="finished" className="flex-1 overflow-hidden">
-          <ScrollArea className="h-full">
-            <DataTable columns={orderColumns} data={finishedOrders} />
-          </ScrollArea>
-        </TabsContent>
-      </Tabs>
+      <OrderTabs
+        pendingOrders={pendingOrders}
+        finishedOrders={finishedOrders}
+        nonPaidOrders={nonPaidOrders}
+      />
     </div>
   );
 };
