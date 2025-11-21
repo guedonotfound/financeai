@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import OrderCheckbox from "../_components/order-checkbox";
 import DeleteOrderButton from "../_components/delete-order-button";
 import OrderInfosButton from "../_components/order-infos-button";
+import { getProfit } from "@/app/_data/get-profit";
 
 type OrderWithProducts = Order & {
   products: (OrderProduct & {
@@ -45,17 +46,14 @@ export const orderColumns: ColumnDef<OrderWithProducts>[] = [
     },
   },
   {
-    accessorKey: "profitPercentage",
-    header: () => <div className="text-center">Porcentagem de lucro</div>,
+    accessorKey: "profit",
+    header: () => <div className="text-center">Lucro</div>,
     cell: ({ row: { original: order } }) => {
       return (
         <div className="text-center">
-          {(
-            ((Number(order.amount) - Number(order.costPrice)) /
-              Number(order.costPrice)) *
-            100
-          ).toFixed(2)}
-          %
+          {getProfit(Number(order.amount), Number(order.costPrice)).value}
+          {" - "}
+          {getProfit(Number(order.amount), Number(order.costPrice)).percentage}%
         </div>
       );
     },
