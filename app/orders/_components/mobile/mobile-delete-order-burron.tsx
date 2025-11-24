@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
 } from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface MobileDeleteOrderButtonProps {
@@ -18,13 +19,17 @@ interface MobileDeleteOrderButtonProps {
 }
 
 const MobileDeleteOrderButton = ({ id }: MobileDeleteOrderButtonProps) => {
-  const handleDeleteOrderButton = () => {
+  const [isDeleting, setIsDeleting] = useState(false);
+  const handleDeleteOrderButton = async () => {
     try {
-      deleteOrder({ id });
+      setIsDeleting(true);
+      await deleteOrder({ id });
       toast.warning("Pedido excluído.");
     } catch (error) {
       console.log(error);
       toast.error("Erro ao deletar pedido.");
+    } finally {
+      setIsDeleting(false);
     }
   };
   return (
@@ -47,8 +52,9 @@ const MobileDeleteOrderButton = ({ id }: MobileDeleteOrderButtonProps) => {
           <AlertDialogAction
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             onClick={handleDeleteOrderButton}
+            disabled={isDeleting}
           >
-            Excluir
+            {isDeleting ? "Excluindo..." : "Excluir"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
