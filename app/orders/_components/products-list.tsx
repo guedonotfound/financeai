@@ -67,16 +67,17 @@ const ProductsList = ({ form, products }: ProductsListProps) => {
             }
             return (
               <Card key={field.id}>
-                <div className="flex items-center justify-between gap-1 bg-white/5 p-3">
+                <div className="items-center justify-between gap-1 bg-white/5 p-3 max-[900px]:space-y-2 min-[900px]:flex">
                   <p className="font-medium">
                     {field.quantity}x {product?.name}
                   </p>
 
-                  <ButtonGroup>
+                  <ButtonGroup className="max-[900px]:w-full">
                     <Button
                       size="sm"
                       variant="outline"
                       onClick={() => handleQuantityChange(index, +1)}
+                      className="w-full"
                     >
                       <PlusIcon />
                     </Button>
@@ -84,6 +85,7 @@ const ProductsList = ({ form, products }: ProductsListProps) => {
                       size="sm"
                       variant="outline"
                       onClick={() => handleQuantityChange(index, -1)}
+                      className="w-full"
                     >
                       <MinusIcon />
                     </Button>
@@ -91,6 +93,7 @@ const ProductsList = ({ form, products }: ProductsListProps) => {
                       onClick={() => remove(index)}
                       size="sm"
                       variant="destructive"
+                      className="w-full"
                     >
                       <TrashIcon />
                     </Button>
