@@ -4,7 +4,7 @@ import { getAdminUser } from "../_data/get-admin-user";
 import { redirect } from "next/navigation";
 import { getOrders } from "../_data/get-orders";
 import DesktopOrdersPage from "./_components/desktop/desktop-orders-page";
-import MobileOrdersPage from "./_components/mobile/page";
+import MobileOrdersPage from "./_components/mobile/mobile-orders-page";
 
 const OrdersPage = async () => {
   const userId = auth();
