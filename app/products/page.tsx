@@ -3,8 +3,8 @@ import AddProductButton from "./_components/add-product-button";
 import { getAdminUser } from "../_data/get-admin-user";
 import { redirect } from "next/navigation";
 import { getProducts } from "../_data/get-products";
-import DesktopProductsPage from "./_components/desktop/page";
-import MobileProductsPage from "./_components/mobile/page";
+import DesktopProductsPage from "./_components/desktop/desktop-products-page";
+import MobileProductsPage from "./_components/mobile/mobile-products-page";
 
 const ProductsPage = async () => {
   const userId = auth();
