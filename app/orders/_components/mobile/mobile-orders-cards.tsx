@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader } from "@/app/_components/ui/card";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTrigger,
 } from "@/app/_components/ui/dialog";
@@ -20,25 +21,37 @@ import MobileDeleteOrderButton from "./mobile-delete-order-burron";
 
 type OrdersResponse = Awaited<ReturnType<typeof getOrders>>;
 
-interface MobileOrderCardProps {
-  orders: OrdersResponse["pendingOrders"] | OrdersResponse["finishedOrders"];
+interface MobileOrdersCardsProps {
+  orders: OrdersResponse["pendingOrders" | "finishedOrders"];
 }
 
-const MobileOrderCard = ({ orders }: MobileOrderCardProps) => {
+const MobileOrdersCards = ({ orders }: MobileOrdersCardsProps) => {
   return (
     <>
       {orders.map((order) => (
         <Dialog key={order.id}>
           <DialogTrigger>
-            <Card>
-              <CardHeader className="p-3">
+            <Card className="bg-white/5">
+              <CardHeader className="p-1">
                 <div className="flex items-end gap-2">
-                  <p className="text-xs text-muted-foreground">
-                    {order.orderNumber}.
+                  <p className="font-bold">
+                    <span className="text-xs text-muted-foreground">
+                      {order.orderNumber}.{" "}
+                    </span>
+                    {order.name}
                   </p>
-                  <p className="text-sm font-bold">{order.name}</p>
                 </div>
               </CardHeader>
+              <CardContent className="flex justify-between p-2">
+                <div>
+                  <p className="text-xs text-muted-foreground">Custo</p>
+                  <p className="text-sm">{formatCurrency(order.costPrice)}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Venda</p>
+                  <p className="text-sm">{formatCurrency(order.amount)}</p>
+                </div>
+              </CardContent>
             </Card>
           </DialogTrigger>
           <DialogContent>
@@ -113,7 +126,9 @@ const MobileOrderCard = ({ orders }: MobileOrderCardProps) => {
               </div>
             </div>
             <Separator />
-            <MobileDeleteOrderButton id={order.id} />
+            <DialogFooter>
+              <MobileDeleteOrderButton id={order.id} />
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       ))}
@@ -121,4 +136,4 @@ const MobileOrderCard = ({ orders }: MobileOrderCardProps) => {
   );
 };
 
-export default MobileOrderCard;
+export default MobileOrdersCards;

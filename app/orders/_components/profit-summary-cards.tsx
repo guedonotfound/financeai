@@ -20,7 +20,7 @@ const ProfitSummaryCards = ({ orders }: ProfitSummaryCardsProps) => {
   const totalPercentage = getProfit(totalAmount, totalCostPrice).percentage;
   return (
     <div className="flex w-full justify-around">
-      <div className="flex gap-2">
+      <div className="flex gap-2 max-[900px]:w-full max-[900px]:justify-between">
         <ProfitSummaryCard
           title="Custo"
           value={formatCurrency(totalCostPrice)}

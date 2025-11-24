@@ -12,7 +12,7 @@ import { orderColumns } from "../_columns";
 import { getOrders } from "@/app/_data/get-orders";
 import { useState } from "react";
 import { Button } from "@/app/_components/ui/button";
-import MobileOrderCard from "./mobile/mobile-order-card";
+import MobileOrdersCards from "./mobile/mobile-orders-cards";
 
 type OrdersResponse = Awaited<ReturnType<typeof getOrders>>;
 
@@ -61,7 +61,7 @@ const OrderTabs = ({
           <DataTable columns={orderColumns} data={pendingOrders} />
         </ScrollArea>
         <div className="block grid grid-cols-2 gap-4 min-[900px]:hidden">
-          <MobileOrderCard orders={pendingOrders} />
+          <MobileOrdersCards orders={pendingOrders} />
         </div>
       </TabsContent>
       <TabsContent
@@ -72,7 +72,7 @@ const OrderTabs = ({
           <DataTable columns={orderColumns} data={finishedOrders} />
         </ScrollArea>
         <div className="block grid grid-cols-2 gap-4 min-[900px]:hidden">
-          <MobileOrderCard orders={finishedOrders} />
+          <MobileOrdersCards orders={finishedOrders} />
         </div>
       </TabsContent>
     </Tabs>
