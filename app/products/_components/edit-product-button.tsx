@@ -18,10 +18,17 @@ const EditProductButton = ({ product }: EditProductButtonProps) => {
       <Button
         variant="ghost"
         size="icon"
-        className="text-muted-foreground"
+        className="hidden text-muted-foreground min-[900px]:block"
         onClick={() => setDialogIsOpen(true)}
       >
         <PencilIcon />
+      </Button>
+      <Button
+        variant="outline"
+        className="min[900px]:hidden block w-full text-muted-foreground"
+        onClick={() => setDialogIsOpen(true)}
+      >
+        Editar produto
       </Button>
       <UpsertProductDialog
         isOpen={dialogIsOpen}

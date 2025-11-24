@@ -82,7 +82,7 @@ const Navbar = ({ isAdmin }: NavbarProps) => {
           <UserButton showName />
         </div>
         <Separator className="w-full" />
-        <div className="flex justify-between px-4">
+        <div className="flex justify-between px-2">
           <Link
             href="/"
             className={

@@ -1,3 +1,5 @@
+"use client";
+
 import { upsertProduct } from "@/app/_actions/upsert-products";
 import { Checkbox } from "@/app/_components/ui/checkbox";
 import { Product } from "@prisma/client";
@@ -8,9 +10,9 @@ interface ProductCheckboxProps {
 }
 
 const ProductCheckbox = ({ product }: ProductCheckboxProps) => {
-  const handleCheckboxClick = (checked: boolean) => {
+  const handleCheckboxClick = async (checked: boolean) => {
     try {
-      upsertProduct({
+      await upsertProduct({
         ...product,
         isActive: checked,
         costPrice: Number(product.costPrice),
@@ -27,7 +29,7 @@ const ProductCheckbox = ({ product }: ProductCheckboxProps) => {
     <Checkbox
       id={`active-${product.id}`}
       checked={product.isActive}
-      onCheckedChange={handleCheckboxClick}
+      onCheckedChange={() => handleCheckboxClick}
       className="h-5 w-5"
     />
   );
