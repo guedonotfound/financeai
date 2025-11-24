@@ -19,17 +19,11 @@ const ProfitSummaryCards = ({ orders }: ProfitSummaryCardsProps) => {
   const totalProfit = getProfit(totalAmount, totalCostPrice).value;
   const totalPercentage = getProfit(totalAmount, totalCostPrice).percentage;
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex w-full items-center justify-around">
+      <ProfitSummaryCard title="Custo" value={formatCurrency(totalCostPrice)} />
+      <ProfitSummaryCard title="Venda" value={formatCurrency(totalAmount)} />
       <ProfitSummaryCard
-        title="Custo total ativo"
-        value={formatCurrency(totalCostPrice)}
-      />
-      <ProfitSummaryCard
-        title="Venda total ativa"
-        value={formatCurrency(totalAmount)}
-      />
-      <ProfitSummaryCard
-        title="Lucro total ativo"
+        title="Lucro"
         value={totalProfit + " - " + totalPercentage + "%"}
       />
     </div>
