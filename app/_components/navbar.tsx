@@ -15,8 +15,8 @@ const Navbar = ({ isAdmin }: NavbarProps) => {
 
   return (
     <>
-      <nav className="flex hidden justify-between border-b border-solid px-8 py-4 min-[900px]:block">
-        <div className="flex items-center gap-10">
+      <nav className="hidden justify-between border-b border-solid px-8 py-4 min-[900px]:block">
+        <div className="flex items-center justify-around">
           <Image src="/logo.svg" alt="Finance AI" width={173} height={39} />
           <Link
             href="/"
@@ -73,8 +73,8 @@ const Navbar = ({ isAdmin }: NavbarProps) => {
               Assinatura
             </Link>
           )}
+          <UserButton showName />
         </div>
-        <UserButton showName />
       </nav>
       <nav className="block justify-between space-y-4 border-b border-solid py-4 min-[900px]:hidden">
         <div className="flex items-center justify-between px-8">
