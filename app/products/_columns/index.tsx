@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { formatCurrency } from "@/app/_utils/currency";
 import EditProductButton from "../_components/edit-product-button";
 import ProductCheckbox from "../_components/product-checkbox";
+import { getProfit } from "@/app/_data/get-profit";
 
 export const productColumns: ColumnDef<Product>[] = [
   {
@@ -39,13 +40,10 @@ export const productColumns: ColumnDef<Product>[] = [
     cell: ({ row: { original: product } }) => {
       return (
         <div className="text-center">
-          {(
-            ((Number(product.amount) - Number(product.costPrice)) /
-              Number(product.costPrice)) *
-            100
-          )
-            .toFixed(2)
-            .replace(".", ",")}
+          {
+            getProfit(Number(product.amount), Number(product.costPrice))
+              .percentage
+          }
           %
         </div>
       );
