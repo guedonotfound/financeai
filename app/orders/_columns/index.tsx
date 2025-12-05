@@ -7,6 +7,7 @@ import OrderCheckbox from "../_components/order-checkbox";
 import DeleteOrderButton from "../_components/delete-order-button";
 import OrderInfosButton from "../_components/order-infos-button";
 import { getProfit } from "@/app/_data/get-profit";
+import EditOrderButton from "../_components/edit-order-button";
 
 type OrderWithProducts = Order & {
   products: (OrderProduct & {
@@ -77,6 +78,7 @@ export const orderColumns: ColumnDef<OrderWithProducts>[] = [
       return (
         <div className="flex justify-center">
           <OrderInfosButton products={order.products} />
+          <EditOrderButton order={order} />
           <DeleteOrderButton id={order.id} />
         </div>
       );

@@ -3,9 +3,9 @@
 import { db } from "@/app/_lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { createOrderSchema } from "./schema";
+import { upsertOrderSchema } from "./schema";
 
-interface CreateOrderParams {
+interface UpsertOrderParams {
   id?: string;
   name: string;
   products: {
@@ -15,8 +15,8 @@ interface CreateOrderParams {
   }[];
 }
 
-export const CreateOrder = async (params: CreateOrderParams) => {
-  createOrderSchema.parse(params);
+export const UpsertOrder = async (params: UpsertOrderParams) => {
+  upsertOrderSchema.parse(params);
 
   const { userId } = auth();
   if (!userId) {
@@ -61,18 +61,27 @@ export const CreateOrder = async (params: CreateOrderParams) => {
       })
     )?.orderNumber || 0) + 1;
 
-  await db.order.create({
-    data: {
-      name: params.name,
-      orderNumber: nextOrderNumber,
-      userId: userId,
-      amount: totalAmount,
-      costPrice: totalCostPrice,
-      products: {
-        create: orderItems,
+  if (params.id) {
+    await db.order.update({
+      where: { id: params.id },
+      data: {
+        name: params.name,
       },
-    },
-  });
+    });
+  } else {
+    await db.order.create({
+      data: {
+        name: params.name,
+        orderNumber: nextOrderNumber,
+        userId: userId,
+        amount: totalAmount,
+        costPrice: totalCostPrice,
+        products: {
+          create: orderItems,
+        },
+      },
+    });
+  }
 
   revalidatePath("/orders");
 };

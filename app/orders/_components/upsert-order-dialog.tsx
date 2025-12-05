@@ -1,6 +1,6 @@
 "use client";
 
-import { CreateOrder } from "@/app/_actions/create-orders";
+import { UpsertOrder } from "@/app/_actions/upsert-orders";
 import {
   Dialog,
   DialogClose,
@@ -35,6 +35,7 @@ interface UpsertOrderDialogProps {
   isOpen: boolean;
   defaultValues?: FormSchema;
   setIsOpen: (isOpen: boolean) => void;
+  orderId?: string;
 }
 
 const formSchema = z.object({
@@ -58,6 +59,7 @@ const UpsertOrderDialog = ({
   isOpen,
   defaultValues,
   setIsOpen,
+  orderId,
 }: UpsertOrderDialogProps) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -78,10 +80,14 @@ const UpsertOrderDialog = ({
   const onSubmit = async (data: FormSchema) => {
     try {
       setIsSubmitting(true);
-      await CreateOrder(data);
+      await UpsertOrder({ ...data, id: orderId });
       setIsOpen(false);
       form.reset();
-      toast.success("Pedido criado.");
+      if (orderId) {
+        toast.success("Pedido atualizado.");
+      } else {
+        toast.success("Pedido criado.");
+      }
       setIsSubmitting(false);
     } catch (error) {
       setIsSubmitting(false);
@@ -149,6 +155,8 @@ const UpsertOrderDialog = ({
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
+                ) : orderId ? (
+                  "Atualizar"
                 ) : (
                   "Adicionar"
                 )}

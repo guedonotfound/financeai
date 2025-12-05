@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const createOrderSchema = z.object({
+export const upsertOrderSchema = z.object({
   name: z.string().trim().min(1, { message: "O nome é obrigatório." }),
   products: z
     .array(
