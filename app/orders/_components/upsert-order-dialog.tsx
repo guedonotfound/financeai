@@ -21,13 +21,14 @@ import {
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 import ProductsList from "./products-list";
 import { Product } from "@prisma/client";
 import { Button } from "@/app/_components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface UpsertOrderDialogProps {
   products: Product[];
@@ -66,6 +67,8 @@ const UpsertOrderDialog = ({
     },
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     if (isOpen && defaultValues) {
       form.reset(defaultValues);
@@ -74,11 +77,14 @@ const UpsertOrderDialog = ({
 
   const onSubmit = async (data: FormSchema) => {
     try {
+      setIsSubmitting(true);
       await CreateOrder(data);
       setIsOpen(false);
       form.reset();
       toast.success("Pedido criado.");
+      setIsSubmitting(false);
     } catch (error) {
+      setIsSubmitting(false);
       console.log(error);
       toast.error("Erro ao salvar pedido.");
     }
@@ -140,7 +146,13 @@ const UpsertOrderDialog = ({
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">Adicionar</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Adicionar"
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>
