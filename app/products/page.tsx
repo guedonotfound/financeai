@@ -23,13 +23,13 @@ const ProductsPage = async () => {
         <h1 className="text-3xl font-bold">Produtos</h1>
         <AddProductButton />
       </div>
-      <div className="hidden min-[900px]:block">
+      <div className="hidden flex-1 overflow-hidden min-[900px]:block">
         <DesktopProductsPage
           activeProducts={activeProducts}
           inactiveProducts={inactiveProducts}
         />
       </div>
-      <div className="block min-[900px]:hidden">
+      <div className="block flex-1 min-[900px]:hidden">
         <MobileProductsPage
           activeProducts={activeProducts}
           inactiveProducts={inactiveProducts}

@@ -19,10 +19,10 @@ const DesktopProductsPage = ({
   inactiveProducts,
 }: DesktopProductsPageProps) => {
   return (
-    <div className="flex flex-1 flex-col overflow-hidden">
+    <div className="flex h-full flex-1 flex-col overflow-hidden">
       <Tabs
         defaultValue="active"
-        className="flex flex-1 flex-col overflow-hidden"
+        className="flex h-full flex-1 flex-col overflow-hidden"
       >
         <div>
           <TabsList>
@@ -30,12 +30,12 @@ const DesktopProductsPage = ({
             <TabsTrigger value="inactive">Inativos</TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value="active" className="flex-1 overflow-hidden">
+        <TabsContent value="active" className="h-full flex-1 overflow-hidden">
           <ScrollArea className="h-full">
             <DataTable columns={productColumns} data={activeProducts} />
           </ScrollArea>
         </TabsContent>
-        <TabsContent value="inactive" className="flex-1 overflow-hidden">
+        <TabsContent value="inactive" className="h-full flex-1 overflow-hidden">
           <ScrollArea className="h-full">
             <DataTable columns={productColumns} data={inactiveProducts} />
           </ScrollArea>

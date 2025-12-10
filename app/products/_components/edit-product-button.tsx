@@ -18,14 +18,14 @@ const EditProductButton = ({ product }: EditProductButtonProps) => {
       <Button
         variant="ghost"
         size="icon"
-        className="hidden text-muted-foreground min-[900px]:block"
+        className="hidden p-3 text-muted-foreground min-[900px]:block"
         onClick={() => setDialogIsOpen(true)}
       >
         <PencilIcon />
       </Button>
       <Button
         variant="outline"
-        className="min[900px]:hidden block w-full text-muted-foreground"
+        className="block w-full text-muted-foreground min-[900px]:hidden"
         onClick={() => setDialogIsOpen(true)}
       >
         Editar produto
