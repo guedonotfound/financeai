@@ -29,53 +29,54 @@ const OrderTabs = ({
 }: OrderTabsProps) => {
   const [activeTab, setActiveTab] = useState("pending");
   return (
-    <Tabs
-      value={activeTab}
-      onValueChange={(value) => setActiveTab(value)}
-      className="flex flex-1 flex-col min-[900px]:min-[900px]:overflow-hidden"
-    >
-      <div className="items-end justify-between min-[900px]:flex">
-        <TabsList className="max-[900px]:w-full">
-          <TabsTrigger value="pending" className="w-full">
-            Pendentes
-          </TabsTrigger>
-          <TabsTrigger value="finished" className="w-full">
-            Finalizados
-          </TabsTrigger>
-        </TabsList>
-        {nonPaidOrders > 0 && (
-          <Button
-            className="font-bold text-red-500 underline hover:bg-none max-[900px]:w-full"
-            variant="ghost"
-            onClick={() => setActiveTab("finished")}
-          >
-            Há pedidos comprados que não foram pagos
-          </Button>
-        )}
-      </div>
-      <TabsContent
-        value="pending"
-        className="flex-1 min-[900px]:overflow-hidden"
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => setActiveTab(value)}
+        className="flex h-full min-h-0 flex-1 flex-col overflow-hidden"
       >
-        <ScrollArea className="hidden h-full min-[900px]:block">
-          <DataTable columns={orderColumns} data={pendingOrders} />
-        </ScrollArea>
-        <div className="block grid grid-cols-2 gap-4 min-[900px]:hidden">
-          <MobileOrdersCards orders={pendingOrders} />
+        <div className="items-end justify-between min-[900px]:flex">
+          <TabsList className="max-[900px]:w-full">
+            <TabsTrigger value="pending" className="w-full">
+              Pendentes
+            </TabsTrigger>
+            <TabsTrigger value="finished" className="w-full">
+              Finalizados
+            </TabsTrigger>
+          </TabsList>
+          {nonPaidOrders > 0 && (
+            <Button
+              className="font-bold text-red-500 underline hover:bg-none max-[900px]:w-full"
+              variant="ghost"
+              onClick={() => setActiveTab("finished")}
+            >
+              Há pedidos comprados que não foram pagos
+            </Button>
+          )}
         </div>
-      </TabsContent>
-      <TabsContent
-        value="finished"
-        className="flex-1 min-[900px]:overflow-hidden"
-      >
-        <ScrollArea className="hidden h-full min-[900px]:block">
-          <DataTable columns={orderColumns} data={finishedOrders} />
-        </ScrollArea>
-        <div className="block grid grid-cols-2 gap-4 min-[900px]:hidden">
-          <MobileOrdersCards orders={finishedOrders} />
-        </div>
-      </TabsContent>
-    </Tabs>
+        <TabsContent value="pending" className="min-h-0 flex-1 overflow-hidden">
+          <ScrollArea className="hidden h-full min-[900px]:block">
+            <DataTable columns={orderColumns} data={pendingOrders} />
+          </ScrollArea>
+
+          <div className="block min-[900px]:hidden">
+            <MobileOrdersCards orders={pendingOrders} />
+          </div>
+        </TabsContent>
+        <TabsContent
+          value="finished"
+          className="min-h-0 flex-1 overflow-hidden"
+        >
+          <ScrollArea className="hidden h-full min-[900px]:block">
+            <DataTable columns={orderColumns} data={finishedOrders} />
+          </ScrollArea>
+
+          <div className="block min-[900px]:hidden">
+            <MobileOrdersCards orders={finishedOrders} />
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
 

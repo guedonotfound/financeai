@@ -13,15 +13,15 @@ const OrdersPage = async () => {
     redirect("/login");
   }
   if (!isAdmin) {
-    throw new Error("Unsauthorized");
+    throw new Error("Unauthorized");
   }
   const products = (await getProducts()).activeProducts;
   const pendingOrders = (await getOrders()).pendingOrders;
   const finishedOrders = (await getOrders()).finishedOrders;
   const nonPaidOrders = (await getOrders()).nonPaidOrders;
   return (
-    <>
-      <div className="hidden min-[900px]:block">
+    <div className="flex h-full flex-col">
+      <div className="hidden flex-1 overflow-hidden min-[900px]:block">
         <DesktopOrdersPage
           products={products}
           pendingOrders={pendingOrders}
@@ -29,7 +29,7 @@ const OrdersPage = async () => {
           nonPaidOrders={nonPaidOrders}
         />
       </div>
-      <div className="block min-[900px]:hidden">
+      <div className="block h-full min-[900px]:hidden">
         <MobileOrdersPage
           products={products}
           pendingOrders={pendingOrders}
@@ -37,7 +37,7 @@ const OrdersPage = async () => {
           nonPaidOrders={nonPaidOrders}
         />
       </div>
-    </>
+    </div>
   );
 };
 
