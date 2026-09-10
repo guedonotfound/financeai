@@ -17,7 +17,7 @@ import { getOrders } from "@/app/_data/get-orders";
 import { getProfit } from "@/app/_data/get-profit";
 import { formatCurrency } from "@/app/_utils/currency";
 import OrderCheckbox from "../order-checkbox";
-import MobileDeleteOrderButton from "./mobile-delete-order-burron";
+import MobileDeleteOrderButton from "./mobile-delete-order-button";
 
 type OrdersResponse = Awaited<ReturnType<typeof getOrders>>;
 
