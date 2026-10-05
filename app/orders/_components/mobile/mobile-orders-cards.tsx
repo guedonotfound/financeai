@@ -27,14 +27,14 @@ interface MobileOrdersCardsProps {
 
 const MobileOrdersCards = ({ orders }: MobileOrdersCardsProps) => {
   return (
-    <>
+    <div className="flex flex-col gap-2">
       {orders.map((order) => (
         <Dialog key={order.id}>
-          <DialogTrigger>
+          <DialogTrigger className="w-full">
             <Card className="bg-white/5">
               <CardHeader className="p-1">
                 <div className="flex items-end gap-2">
-                  <p className="font-bold">
+                  <p className="min-w-0 truncate font-bold">
                     <span className="text-xs text-muted-foreground">
                       {order.orderNumber}.{" "}
                     </span>
@@ -132,7 +132,7 @@ const MobileOrdersCards = ({ orders }: MobileOrdersCardsProps) => {
           </DialogContent>
         </Dialog>
       ))}
-    </>
+    </div>
   );
 };
 

@@ -59,7 +59,7 @@ const OrderTabs = ({
             <DataTable columns={orderColumns} data={pendingOrders} />
           </ScrollArea>
 
-          <div className="block min-[900px]:hidden">
+          <div className="block h-full overflow-y-auto min-[900px]:hidden">
             <MobileOrdersCards orders={pendingOrders} />
           </div>
         </TabsContent>
