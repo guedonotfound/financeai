@@ -27,7 +27,7 @@ interface MobileOrdersCardsProps {
 
 const MobileOrdersCards = ({ orders }: MobileOrdersCardsProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="grid grid-cols-2 gap-2">
       {orders.map((order) => (
         <Dialog key={order.id}>
           <DialogTrigger className="w-full">
